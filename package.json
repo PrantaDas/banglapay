@@ -1,0 +1,58 @@
+{
+  "name": "banglapay",
+  "version": "0.1.0",
+  "description": "Unified server-side TypeScript SDK for Bangladesh payment gateways: bKash, Nagad and SSLCOMMERZ.",
+  "license": "MIT",
+  "author": "Pranta Das <prantodas043@gmail.com> (https://github.com/Prantadas)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Prantadas/banglapay.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Prantadas/banglapay/issues"
+  },
+  "homepage": "https://github.com/Prantadas/banglapay#readme",
+  "keywords": [
+    "bangladesh",
+    "payment",
+    "bkash",
+    "nagad",
+    "sslcommerz",
+    "payment-gateway",
+    "typescript"
+  ],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
