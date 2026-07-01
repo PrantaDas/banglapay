@@ -1,6 +1,6 @@
 {
   "name": "banglapay",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Unified server-side TypeScript SDK for Bangladesh payment gateways: bKash, Nagad and SSLCOMMERZ.",
   "license": "MIT",
   "author": "Pranta Das <prantodas043@gmail.com> (https://github.com/Prantadas)",

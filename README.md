@@ -12,6 +12,8 @@
 [![runtime](https://img.shields.io/badge/runtime-Node%2018%2B%20%7C%20Bun%20%7C%20Deno-43853d.svg)](#install)
 [![deps](https://img.shields.io/badge/dependencies-0-brightgreen.svg)](#why-banglapay)
 
+📖 **[Documentation](https://prantadas.dev/docs/banglapay)**
+
 </div>
 
 ---
