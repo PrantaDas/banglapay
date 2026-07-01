@@ -1,6 +1,6 @@
 <div align="center">
 
-# 💳 banglapay
+# banglapay
 
 ### One SDK for every Bangladeshi payment gateway
 
@@ -35,22 +35,22 @@ const result = await client.executePayment({ paymentRef }); // → normalized St
 
 ---
 
-## ✨ Why banglapay
+## Why banglapay
 
 | | |
 | --- | --- |
-| 🔒 **Server-side only** | Handles store passwords, app secrets, and RSA private keys. Never ships to the browser. |
-| 🧩 **Framework-independent** | Pure TypeScript. Identical on Node 18+, Bun, and Deno. Returns data — never owns your routes. |
-| 📦 **Zero runtime deps** | Native `fetch` + Node `crypto`. Nothing else. |
-| 🧠 **Type-safe by design** | Discriminated-union config — wrong credentials fail at **compile time**. |
-| 🔁 **Normalized everything** | One `PaymentStatus` enum, shared result types, and always the raw provider payload. |
-| ⚡ **Dual ESM + CJS** | Ships `.mjs`, `.cjs`, and generated `.d.ts`. |
+| **Server-side only** | Handles store passwords, app secrets, and RSA private keys. Never ships to the browser. |
+| **Framework-independent** | Pure TypeScript. Identical on Node 18+, Bun, and Deno. Returns data — never owns your routes. |
+| **Zero runtime deps** | Native `fetch` + Node `crypto`. Nothing else. |
+| **Type-safe by design** | Discriminated-union config — wrong credentials fail at **compile time**. |
+| **Normalized everything** | One `PaymentStatus` enum, shared result types, and always the raw provider payload. |
+| **Dual ESM + CJS** | Ships `.mjs`, `.cjs`, and generated `.d.ts`. |
 
 > Checkout flow only — no recurring/agreement or disbursement/payout APIs.
 
 ---
 
-## 🚀 Install
+## Install
 
 ```bash
 npm install banglapay
@@ -68,7 +68,7 @@ Requires **Node 18+** (or Bun / Deno) for global `fetch` and Web Crypto.
 
 ---
 
-## ⚡ Quick start
+## Quick start
 
 ```ts
 import { PaymentClient } from 'banglapay';
@@ -82,7 +82,7 @@ const client = new PaymentClient({
   },
 });
 
-// 1️⃣  Start a checkout — redirect the customer to redirectURL.
+// 1. Start a checkout — redirect the customer to redirectURL.
 const { redirectURL, paymentRef } = await client.initPayment({
   amount: 500,
   currency: 'BDT',
@@ -90,10 +90,10 @@ const { redirectURL, paymentRef } = await client.initPayment({
   callbackURL: 'https://api.myapp.com/payments/callback',
 });
 
-// 2️⃣  After the customer returns, confirm/settle the payment.
+// 2. After the customer returns, confirm/settle the payment.
 const result = await client.executePayment({ paymentRef });
 if (result.status === 'SUCCESS') {
-  // fulfill the order 🎉
+  // fulfill the order
 }
 ```
 
@@ -102,17 +102,17 @@ if (result.status === 'SUCCESS') {
 
 ---
 
-## 🗺️ Supported gateways
+## Supported gateways
 
 | Gateway | Flow | Auth model | Webhook / callback |
 | --- | --- | --- | --- |
-| **SSLCOMMERZ** | Hosted checkout → validate → refund | Store id + password | Signed IPN (md5 hash) ✅ |
-| **bKash** | Tokenized Checkout: create → execute | OAuth token (auto-managed) | Unsigned redirect → re-query 🔁 |
-| **Nagad** | Initialize → complete handshake | RSA encrypt + sign | Unsigned redirect → re-query 🔁 |
+| **SSLCOMMERZ** | Hosted checkout → validate → refund | Store id + password | Signed IPN (md5 hash) |
+| **bKash** | Tokenized Checkout: create → execute | OAuth token (auto-managed) | Unsigned redirect → re-query |
+| **Nagad** | Initialize → complete handshake | RSA encrypt + sign | Unsigned redirect → re-query |
 
 ---
 
-## 🧬 Normalized model
+## Normalized model
 
 Every provider response maps onto shared types, and the untouched provider payload is
 always available as `raw`.
@@ -134,7 +134,7 @@ interface StatusResult {
 }
 ```
 
-### 🧯 Errors
+### Errors
 
 All failures throw a subclass of `PaymentError` — catch broadly or narrowly.
 
@@ -151,10 +151,10 @@ Each carries `gateway`, `providerCode`, `httpStatus`, and `raw` where available.
 
 ---
 
-## 🔧 Per-gateway setup
+## Per-gateway setup
 
 <details open>
-<summary><b>🟢 SSLCOMMERZ</b></summary>
+<summary><b>SSLCOMMERZ</b></summary>
 
 <br>
 
@@ -193,7 +193,7 @@ await client.refund({ paymentRef, amount: 1200, reason: 'customer request' });
 </details>
 
 <details>
-<summary><b>🔴 bKash (Tokenized Checkout)</b></summary>
+<summary><b>bKash (Tokenized Checkout)</b></summary>
 
 <br>
 
@@ -236,7 +236,7 @@ therefore **re-queries bKash** for the authoritative status instead of trusting 
 </details>
 
 <details>
-<summary><b>🟠 Nagad</b></summary>
+<summary><b>Nagad</b></summary>
 
 <br>
 
@@ -282,7 +282,7 @@ const result = await client.queryPayment({ paymentRef });
 
 ---
 
-## 🪝 Framework-agnostic callback route
+## Framework-agnostic callback route
 
 The SDK never owns routes — wire it into whatever router you use. Same pattern
 everywhere: parse the inbound body into a flat `Record<string, string>`, call
@@ -336,7 +336,7 @@ app.post('/payments/callback', async (req, res) => {
 
 ---
 
-## 📚 API surface
+## API surface
 
 ```ts
 class PaymentClient implements IPaymentGateway {
@@ -358,7 +358,7 @@ class PaymentClient implements IPaymentGateway {
 
 ---
 
-## 🛠️ Development
+## Development
 
 ```bash
 npm install
@@ -369,22 +369,7 @@ npm run build       # tsup → dual ESM + CJS + .d.ts in dist/
 
 ---
 
-## 📁 Project layout
-
-```
-src/
-├─ core/        PaymentClient · http · errors · validate
-├─ gateways/
-│  ├─ sslcommerz/   adapter + provider types
-│  ├─ bkash/        adapter + token lifecycle + provider types
-│  └─ nagad/        adapter + RSA crypto + provider types
-├─ types/       normalized status · results · config union · gateway interface
-└─ index.ts     public entry point
-```
-
----
-
-## 📄 License
+## License
 
 [MIT](./LICENSE) © [Pranta Das](https://github.com/Prantadas)
 
